@@ -12,10 +12,11 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="job-form-box">
-                        <h2 class="heading">Find a <span class="accent">job</span> you will
-                            <span class="accent">love</span>.
-                        </h2>
-                        <form id="job-main-form" method="get" action="{% url 'jobs:searh' %}" class="job-main-form">
+                        <h4 class="heading">Working at Oxfam is much more than just a job. 
+                            It’s a chance to join a community of like-minded individuals
+                             tackling poverty together around the world.
+                        </h4>
+                        <form id="job-main-form" method="get" action="#" class="job-main-form">
                             <div class="controls">
                                 <div class="row align-items-center">
                                     <div class="col-md-5">
@@ -46,83 +47,77 @@
             </div>
         </div>
     </section>
-    <section class="bg-light-gray">
+   
+   <section>
         <div class="container">
-            <h3 class="heading">Featured jobs</h3>
-            <div class="row featured align-items-stretch">
-                {% for job in jobs %}
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="box-image-text bg-visible full-height">
-                            <div class="top">
-                                <a href="#">
-                                    <div class="image">
-                                        <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="bg"></div>
-                                    <div class="logo">
-                                        <img src="{% static 'img/company-1.png' %}" alt="" style="max-width: 80px;">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h5><a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h5>
-                                <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
-                                    {{ job.location }}
-                                    {% if job.type == '1' %}
-                                        <span class="badge featured-badge badge-success">Full time</span>
-                                    {% elif job.type == '2' %}
-                                        <span class="badge featured-badge badge-primary">Part time</span>
-                                    {% else %}
-                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
-                                    {% endif %}
-                                </p>
-                                <p>{{ job.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <h4 class="heading">Trending this month</h4>
-            {% for trending in trendings %}
-                <div class="job-listing  job-listing--last">
+            <h3 class="heading">We have found <span class="accent">{{ jobs.count }}</span> jobs</h3>
+            {% for job in jobs %}
+                <div class="job-listing  ">
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
                             <div class="row">
                                 <div class="col-2">
                                     <img src="{% static 'img/company-1.png' %}"
-                                         alt="ShareBoardd " class="img-fluid">
+                                         alt="Ipsioou " class="img-fluid">
                                 </div>
                                 <div class="col-10">
-                                    <h4 class="job__title">
-                                        <a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a>
-                                    </h4>
+                                    <h4 class="job__title"><a
+                                            href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h4>
                                     <p class="job__company">
-                                        {{ trending.company_name }}
+                                        {{ job.company_name }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                            {{ trending.location }}
+                            {{ job.location }}
                         </div>
                         <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                            <p>Posted {{ trending.created_at|timesince }}</p>
-                        </div>
-                        <div class="col-sm-12 col-md-2 col-lg-1">
-                            <div class="job__star">
-                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                   title="Save to favourites" class="job__star__link">
-                                    <i class="fa fa-star"></i>
-                                </a>
-                            </div>
+                            <p>Posted {{ job.created_at|timesince }}</p>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+            {% if is_paginated %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.previous_page_number }}"
+                                           class="page-link">&laquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active">
+                                            <a class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </section>
     <section style="background-image: url({% static 'img/startup.jpg' %}); " class="section-divider">
