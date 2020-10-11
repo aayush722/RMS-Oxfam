@@ -112,19 +112,19 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h4>Company details</h4>
+                                <h4>Department details</h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <label for="company_name">Company name</label>
+                                <label for="company_name">Department name</label>
                                 <input id="company_name" name="company_name" type="text" class="form-control" value="{{ form.company_name.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
 {#                                <p class="text-danger">{{ form.company_description.errors }}</p>#}
-                                <label for="company_description">Company Description</label>
+                                <label for="company_description">Department Description</label>
                                 <textarea id="company_description" name="company_description" rows="3"
                                           class="form-control">{{ form.company_description.value|default_if_none:"" }}</textarea>
                             </div>
