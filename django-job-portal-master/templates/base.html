@@ -109,6 +109,7 @@
                             </div>
                         </li>
                     {% else %}
+                    <!--
                         <li class="nav-item dropdown">
                             <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register
@@ -117,6 +118,12 @@
                                 <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
                                 <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Employers</a>
                             </div>
+                        </li>
+                    -->
+                        <li class="nav-item" style="color: #fff">
+                            <a href="{% url 'accounts:employer-register' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
+                                <i class="fa fa-signing"></i>Register
+                            </a>
                         </li>
                         <li class="nav-item" style="color: #fff">
                             <a href="{% url 'accounts:login' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
