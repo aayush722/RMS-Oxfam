@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django import forms
 
 from accounts.models import User
 
@@ -28,6 +29,22 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+class UserDetials(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicant')
+    firstname = models.CharField(max_length=300)
+    lastname = models.CharField(max_length=300)
+
+    # email = models.EmailField(unique=True, blank=False,
+    #                           error_messages={
+    #                               'unique': "A user with that email already exists.",
+    #                           })
+    resume = models.FileField()
+    date_of_birth = models.DateField(blank=True, null=True)
+    degree = models.CharField(max_length=300)
+    institute = models.CharField(max_length=300)
+    department = models.CharField(max_length=300)
+    def __str__(self):
+        return self.firstname
 
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

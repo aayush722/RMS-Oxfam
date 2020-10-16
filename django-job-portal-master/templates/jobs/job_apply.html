@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <section class="site-section" id="next-section">
+        <div class="container">
+
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <center><h1 class="lead">Apply for job </h1></center>
+                    <form action="" method="POST" class="" enctype="multipart/form-data">{% csrf_token %}
+
+                    <!-- {% for field in form %}
+                        <div class="form-group">
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                        </div>
+                    {% endfor %} -->
+                    <div class="form-group">
+                        <label for="{{form.firstname.id_for_label}}">Firstname</label>
+                        <input class="form-control" name= "firstname" id="id_firstname" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.lastname.id_for_label}}">Lastname</label>
+                        <input class="form-control" name= "lastname" id="id_lastname" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.department.id_for_label}}">Email</label>
+                        <input class="form-control" name= "department" id="id_department" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.date_of_birth.id_for_label}}">Date of Birth</label>
+                        <input class="form-control" name= "date_of_birth" id="id_date_of_birth" type="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.resume.id_for_label}}">Resume</label>
+                        <input class="form-control" name= "resume" id="id_resume" type="file">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{form.degree.id_for_label}}">Degree</label>
+                        <input class="form-control" name= "degree" id="id_degree" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.institute.id_for_label}}">Institute</label>
+                        <input class="form-control" name= "institute" id="id_institute" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.department.id_for_label}}">Department</label>
+                        <input class="form-control" name= "department" id="id_department" type="text">
+                    </div>
+
+                    <p>Previous Experience</p>
+                    <div class="row form-group">
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Year(s)">
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Month(s)">
+                        </div>
+                    </div>
+
+                    <p>Experience In NGO</p>
+                    <div class="row form-group">
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Year(s)">
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Month(s)">
+                        </div>
+                    </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="submit" onclick="myFunction()" value="Submit"
+                                        class="btn btn-primary btn-md text-white">
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <script>
+                        function myFunction() {
+                            alert("Are you applying to this job?");
+                        }
+                    </script>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}
