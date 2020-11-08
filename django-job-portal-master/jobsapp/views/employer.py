@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView
 
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Job, Applicant
+from jobsapp.models import Job, Applicant, UserDetials
 
 
 class DashboardView(ListView):
@@ -25,7 +25,7 @@ class DashboardView(ListView):
 
 
 class ApplicantPerJobView(ListView):
-    model = Applicant
+    model = UserDetials
     template_name = 'jobs/employer/applicants.html'
     context_object_name = 'applicants'
     paginate_by = 1
@@ -36,7 +36,7 @@ class ApplicantPerJobView(ListView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_queryset(self):
-        return Applicant.objects.filter(job_id=self.kwargs['job_id']).order_by('id')
+        return UserDetials.objects.filter(job_id=self.kwargs['job_id']).order_by('id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

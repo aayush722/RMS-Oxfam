@@ -40,7 +40,7 @@
                             {% if is_applied %}
                                 <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
                             {% else %}
-                                <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                <form action="{% url 'jobs:job-testing' job.id %}" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="job" value="{{ job.id }}">
                                     <input type="submit" class="btn btn-outline-white-primary"
@@ -48,7 +48,7 @@
                                 </form>
                             {% endif %}
                         {% else %}
-                            <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                            <form action="{% url 'jobs:job-testing' job.id %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="job" value="{{ job.id }}">
                                 <input type="submit" class="btn btn-outline-white-primary"

@@ -1,6 +1,6 @@
 from django import forms
-
-from jobsapp.models import Job, Applicant
+from django.forms import CharField
+from jobsapp.models import Job, Applicant, UserDetials
 
 
 class CreateJobForm(forms.ModelForm):
@@ -27,8 +27,16 @@ class CreateJobForm(forms.ModelForm):
             job.save()
         return job
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class ApplyJobForm(forms.ModelForm):
     class Meta:
         model = Applicant
         fields = ('job',)
+
+class JobApplyForm(forms.ModelForm):
+    class Meta:
+        model = UserDetials
+        exclude = ('job',)
+        widgets = {'date_of_birth': DateInput(format=['%d/%m/%Y'])}

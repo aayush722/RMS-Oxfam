@@ -1,13 +1,17 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 
 from accounts.forms import EmployeeProfileUpdateForm
 from accounts.models import User
 from jobsapp.decorators import user_is_employee
-
+from jobsapp.forms import JobApplyForm
+from jobsapp.models import UserDetials, Job
+from django.shortcuts import render
+from django.forms import modelformset_factory
 
 class EditProfileView(UpdateView):
     model = User
@@ -35,3 +39,24 @@ class EditProfileView(UpdateView):
         if obj is None:
             raise Http404("Job doesn't exists")
         return obj
+
+class ApplyJobViewTest(CreateView):
+    model = UserDetials
+    form_class = JobApplyForm
+    slug_field = 'job_id'
+    slug_url_kwarg = 'job_id'
+    # success_url = reverse_lazy('accounts:login')
+    template_name = 'jobs/job_apply.html'
+
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        # self.object = form.save()
+        test_form = form.save(commit=False)
+        test_form.job = Job.objects.get(id=self.kwargs['job_id'])
+        test_form.save()
+        messages.info(self.request, 'Successfully applied for the job!')
+        return super().form_valid(test_form)
+    
+    def get_success_url(self):
+        # return reverse_lazy('jobs:jobs-detail', kwargs={'id': self.kwargs['job_id']})
+        return reverse_lazy('jobs:home')
