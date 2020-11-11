@@ -46,12 +46,14 @@
                                 <th>Firstname</th>
                                 <th>Lastname</th>
                                 <th>Degree</th>
+                                <th>Resume</th>
                             </tr>
                             {% for applicant in applicants %}
                             <tr>
                                 <td>{{applicant.firstname}}</td>
                                 <td>{{applicant.lastname}}</td>
                                 <td>{{applicant.degree}}</td>
+                                <td><a href="{{applicant.resume.url}}"">Download</a></td>
                             </tr>
                             {% endfor %}            
                         </table>

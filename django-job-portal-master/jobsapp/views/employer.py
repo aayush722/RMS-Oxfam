@@ -39,7 +39,7 @@ def ExportToCsv(request, **kwargs):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['First Name', 'Last Name', 'Degree']
+    columns = ['First Name', 'Last Name', 'Degree','Resume']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
@@ -47,7 +47,7 @@ def ExportToCsv(request, **kwargs):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = UserDetials.objects.filter(job_id=kwargs['job_id']).values_list('firstname', 'lastname', 'degree')
+    rows = UserDetials.objects.filter(job_id=kwargs['job_id']).values_list('firstname', 'lastname', 'degree','resume')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
