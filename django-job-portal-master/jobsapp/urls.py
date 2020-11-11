@@ -10,7 +10,7 @@ urlpatterns = [
     path('employer/dashboard/', include([
         path('', DashboardView.as_view(), name='employer-dashboard'),
         path('all-applicants', ApplicantsListView.as_view(), name='employer-all-applicants'),
-        path('applicants/<int:job_id>', ApplicantPerJobView.as_view(), name='employer-dashboard-applicants'),
+        path('applicants/<int:job_id>', ApplicantPerJobView, name='employer-dashboard-applicants'),
         path('mark-filled/<int:job_id>', filled, name='job-mark-filled'),
     ])),
     path('apply-job/<int:job_id>', ApplyJobView.as_view(), name='apply-job'),

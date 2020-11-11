@@ -15,30 +15,43 @@
             </div>
         </div>
     </section>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+    
+                <form method="get">
+                    {{myFilter.form}}
+    
+                <button class="btn btn-primary" type="submit">Search</button>
+              </form>
+    
+            </div>
+        </div>
+        
+    </div>
+    <br>
     <section>
         <div class="container">
             <div class="row">
-                {% for applicant in applicants %}
-                    <div class="col-lg-6">
-                        <div class="box applicant">
-                            <h4>{{ applicant.firstname}}</h4>
-                            <a href="#" data-toggle="modal" data-target="#contact-modal"
-                               class="btn btn-outline-white-secondary btn-sm">
-                                <i class="fa fa-envelope"></i>Contact
-                            </a>
-                            <p>
-                                <span class="badge badge-info">Applied {{ applicant.created_at.astimezone }}</span>
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                <p class="intro"></p>
-                                <div class="image">
-                                    <img src="{% static 'img/avatar.png' %}" alt=""
-                                         class="img-fluid rounded-circle">
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md">
+                    <div class="card card-body">
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Degree</th>
+                            </tr>
+                            {% for applicant in applicants %}
+                            <tr>
+                                <td>{{applicant.firstname}}</td>
+                                <td>{{applicant.lastname}}</td>
+                                <td>{{applicant.degree}}</td>
+                            </tr>
+                            {% endfor %}            
+                        </table>
                     </div>
-                {% endfor %}
+                </div>
                 {% if is_paginated %}
                     <div class="row">
                         <div class="col-md-12">
@@ -80,7 +93,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <h3>No Applicants Applied For This Job</h3>
+                    <h3>No Applicants</h3>
                 {% endif %}
             </div>
         </div>
