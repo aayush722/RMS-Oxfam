@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView
@@ -9,6 +9,8 @@ from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant, UserDetials
 from jobsapp.filters import ApplicantFilter
+import csv
+import xlwt
 
 
 class DashboardView(ListView):
@@ -24,6 +26,36 @@ class DashboardView(ListView):
     def get_queryset(self):
         return self.model.objects.filter(user_id=self.request.user.id)
 
+def ExportToCsv(request, **kwargs):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="applicants.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['First Name', 'Last Name', 'Degree']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = UserDetials.objects.filter(job_id=kwargs['job_id']).values_list('firstname', 'lastname', 'degree')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
 def ApplicantPerJobView(request, **kwargs):
     # TODO CHECK FEASABILITY: changed from ListView to normal function  
 	applicants = UserDetials.objects.filter(job_id=kwargs['job_id']).order_by('id')
@@ -31,7 +63,7 @@ def ApplicantPerJobView(request, **kwargs):
 	myFilter = ApplicantFilter(request.GET, queryset=applicants)
 	applicants = myFilter.qs 
 
-	context = {'applicants':applicants,'myFilter':myFilter}
+	context = {'applicants':applicants,'myFilter':myFilter, 'job_id':kwargs['job_id']}
 	return render(request, 'jobs/employer/applicants.html',context)
 
 
