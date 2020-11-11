@@ -66,7 +66,13 @@ def ApplicantPerJobView(request, **kwargs):
 	context = {'applicants':applicants,'myFilter':myFilter, 'job_id':kwargs['job_id']}
 	return render(request, 'jobs/employer/applicants.html',context)
 
+class ApplicantDetailsListView(ListView):
+    model = UserDetials
+    template_name = 'jobs/employee/applicant_details.html'
+    context_object_name = 'applicant'
 
+    def get_queryset(self):
+        return UserDetials.objects.filter(id=self.kwargs['job_id'])[0]
 
 class JobCreateView(CreateView):
     template_name = 'jobs/create.html'
@@ -98,7 +104,7 @@ class JobCreateView(CreateView):
 
 
 class ApplicantsListView(ListView):
-    model = Applicant
+    model = UserDetials
     template_name = 'jobs/employer/all-applicants.html'
     context_object_name = 'applicants'
 

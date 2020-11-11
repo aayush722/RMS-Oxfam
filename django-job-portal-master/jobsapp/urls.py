@@ -12,6 +12,7 @@ urlpatterns = [
         path('all-applicants', ApplicantsListView.as_view(), name='employer-all-applicants'),
         path('applicants/<int:job_id>', ApplicantPerJobView, name='employer-dashboard-applicants'),
         path('csvdump/<int:job_id>', ExportToCsv, name='employer-dashboard-csvdump'),
+        path('applicant-details/<int:job_id>', ApplicantDetailsListView.as_view(), name='employer-dashboard-applicant-details'),
         path('mark-filled/<int:job_id>', filled, name='job-mark-filled'),
     ])),
     path('apply-job/<int:job_id>', ApplyJobView.as_view(), name='apply-job'),

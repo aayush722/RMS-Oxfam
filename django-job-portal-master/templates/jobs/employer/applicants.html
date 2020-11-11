@@ -54,6 +54,7 @@
                                 <td>{{applicant.lastname}}</td>
                                 <td>{{applicant.degree}}</td>
                                 <td><a href="{{applicant.resume.url}}"">Download</a></td>
+                                <td><a href="{% url 'jobs:employer-dashboard-applicant-details' applicant.id %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">View</a></td>
                             </tr>
                             {% endfor %}            
                         </table>

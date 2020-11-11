@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+<section class="site-section" id="next-section">
+    <div class="container">
+
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <center><h1 class="lead">{{applicant.firstname}} {{applicant.lastname}}</h1></center>
+                <form>{% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{form.firstname.id_for_label}}">Name</label>
+                    <input class="form-control" type="text" value="{{applicant.firstname}} {{applicant.lastname}}">
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="{{form.department.id_for_label}}">Email</label>
+                    <input class="form-control" type="text" value="{{applicant.email}}">
+                </div> -->
+
+                <div class="form-group">
+                    <label for="{{form.date_of_birth.id_for_label}}">Date of Birth</label>
+                    <input class="form-control" type="text" value="{{applicant.date_of_birth}}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{form.degree.id_for_label}}">Degree</label>
+                    <input class="form-control" type="text" value="{{applicant.degree}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="{{form.institute.id_for_label}}">Institute</label>
+                    <input class="form-control" type="text" value="{{applicant.institute}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="{{form.department.id_for_label}}">Department</label>
+                    <input class="form-control" type="text" value="{{applicant.department}}">
+                </div>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
