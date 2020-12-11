@@ -11,77 +11,131 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <center><h1 class="lead">Apply for job </h1></center>
-                    <form action="" method="POST" class="" enctype="multipart/form-data">{% csrf_token %}
-
-                    <!-- {% for field in form %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{field.name}}: {{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{field.name}}: {{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                    <form action="" method="POST" class="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- TODO: CHANGE TO THIS ? -->
+                        <!-- {% for field in form %}
+                            <div class="form-group">
+                                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}"
+                                    class="form-control"
+                                    name="{{ field.name }}"
+                                    id="id_{{ field.name }}"
+                                    placeholder="{{ field.field.widget.attrs.placeholder }}">
+                            </div>
+                        {% endfor %} -->
                         <div class="form-group">
-                            <label for="id_{{ field.name }}">{{ field.label }}</label>
-                            <input type="{{ field.field.widget.input_type }}"
-                                   class="form-control"
-                                   name="{{ field.name }}"
-                                   id="id_{{ field.name }}"
-                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                            <label for="{{form.fullname.id_for_label}}">Fullname</label>
+                            <input class="form-control" name= "fullname" id="id_fullname" type="text">
                         </div>
-                    {% endfor %} -->
-                    <div class="form-group">
-                        <label for="{{form.firstname.id_for_label}}">Firstname</label>
-                        <input class="form-control" name= "firstname" id="id_firstname" type="text">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="{{form.lastname.id_for_label}}">Lastname</label>
-                        <input class="form-control" name= "lastname" id="id_lastname" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{form.department.id_for_label}}">Email</label>
-                        <input class="form-control" name= "department" id="id_department" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{form.date_of_birth.id_for_label}}">Date of Birth</label>
-                        <input class="form-control" name= "date_of_birth" id="id_date_of_birth" type="date">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{form.resume.id_for_label}}">Resume</label>
-                        <input class="form-control" name= "resume" id="id_resume" type="file">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{form.degree.id_for_label}}">Degree</label>
-                        <input class="form-control" name= "degree" id="id_degree" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{form.institute.id_for_label}}">Institute</label>
-                        <input class="form-control" name= "institute" id="id_institute" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{form.department.id_for_label}}">Department</label>
-                        <input class="form-control" name= "department" id="id_department" type="text">
-                    </div>
-
-                    <p>Previous Experience</p>
-                    <div class="row form-group">
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Year(s)">
+                        <div class="form-group">
+                            <label for="{{form.email.id_for_label}}">Email</label>
+                            <input class="form-control" name= "email" id="id_email" type="text">
                         </div>
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Month(s)">
-                        </div>
-                    </div>
 
-                    <p>Experience In NGO</p>
-                    <div class="row form-group">
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Year(s)">
+                        <div class="form-group">
+                            <label for="{{form.phone_number.id_for_label}}">Phone Number</label>
+                            <input class="form-control" name= "phone_number" id="id_phone_number" type="text">
                         </div>
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Month(s)">
+
+                        <div class="form-group">
+                            <label for="{{form.date_of_birth.id_for_label}}">Date of Birth</label>
+                            <input class="form-control" name= "date_of_birth" id="id_date_of_birth" type="date">
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label for="{{form.highest_qualification.id_for_label}}">Highest Qualification</label>
+                            <input class="form-control" name= "highest_qualification" id="id_highest_qualification" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{form.resume.id_for_label}}">Resume</label>
+                            <input class="form-control" name= "resume" id="id_resume" type="file">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{form.skill_set.id_for_label}}">Skill Set</label>
+                            <textarea class="form-control" row="5" name= "skill_set" id="id_skill_set"></textarea>
+                        </div>
+
+                        <p style="margin: 0;">Previous Experience</p>
+                        <div class="row form-group">
+                            <div class="col">
+                            <label for="{{form.total_experience_yrs.id_for_label}}"></label>
+                            <input class="form-control" name= "total_experience_yrs" id="id_total_experience_yrs" type="text" placeholder="Year(s)">
+                            </div>
+                            <div class="col">
+                                <label for="{{form.total_experience_mos.id_for_label}}"></label>
+                                <input class="form-control" name= "total_experience_mos" id="id_total_experience_mos" type="text" placeholder="Month(s)">
+                            </div>
+                        </div>
+
+                        <p style="margin: 0;">Experience In NGO</p>
+                        <div class="row form-group">
+                            <div class="col">
+                                <label for="{{form.ngo_experience_yrs.id_for_label}}"></label>
+                                <input class="form-control" name= "ngo_experience_yrs" id="id_ngo_experience_yrs" type="text" placeholder="Year(s)">
+                            </div>
+                            <div class="col">
+                                <label for="{{form.ngo_experience_mos.id_for_label}}"></label>
+                                <input class="form-control" name= "ngo_experience_mos" id="id_ngo_experience_mos" type="text" placeholder="Month(s)">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                            <label for="{{form.current_ctc.id_for_label}}">Current CTC (INR)</label>
+                            <input class="form-control" name= "current_ctc" id="id_current_ctc" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{form.expected_ctc.id_for_label}}">Expected CTC (INR)</label>
+                                <input class="form-control" name= "expected_ctc" id="id_expected_ctc" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{form.notice_period.id_for_label}}">Notice Period (Days)</label>
+                            <input class="form-control" name= "notice_period" id="id_notice_period" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{form.current_org.id_for_label}}">Current Organization</label>
+                            <input class="form-control" name= "current_org" id="id_current_org" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{form.current_designation.id_for_label}}">Designation in Current Organization</label>
+                            <input class="form-control" name= "current_designation" id="id_current_designation" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{form.current_city.id_for_label}}">Current City</label>
+                            <input class="form-control" name= "current_city" id="id_current_city" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form.relocate.id_for_label">Ready to re-locate as per job location</label>
+                            <select id="id_relocate" name="relocate" placeholder="Choose job type" class="form-control">
+                                <option value="1" {% if form.relocate.value == "1" %} selected {% endif %}>Yes</option>
+                                <option value="2" {% if form.relocate.value == "2" %} selected {% endif %}>No</option>
+                            </select>
+                        </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
@@ -92,9 +146,10 @@
 
 
                     </form>
+
                     <script>
                         function myFunction() {
-                            alert("Are you applying to this job?");
+                            alert("By applying to this position in Oxfam, you are declaring that you will abide by all the safeguarding policies of Oxfam (available on our website (LINK)) and have no prior convictions or have been dismissed from previous jobs for child, staff or community related misconduct.");
                         }
                     </script>
 
