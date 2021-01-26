@@ -1,0 +1,78 @@
+{% for field in form %}
+
+    {% if field.name == 'total_experience_yrs'%}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="text-danger small">{{ field.errors}}</span>
+            <label for="id_{{ field.name }}">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}"
+                class="form-control"
+                name="{{ field.name }}"
+                id="id_{{ field.name }}"
+                placeholder="{{ field.field.widget.attrs.placeholder }}">
+        </div>
+        <div class="form-group col-md-6">
+            <span class="text-danger small">{{ field.errors}}</span>
+            <label for="id_total_experience_mos">Total experience mos</label>
+            <input type="number"
+                class="form-control"
+                name="total_experience_mos"
+                id="id_total_experience_mos">
+        </div>
+    </div>
+    {% elif field.name == 'total_experience_mos' %}
+
+    {% elif field.name == 'ngo_experience_yrs'%}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="text-danger small">{{ field.errors}}</span>
+            <label for="id_{{ field.name }}">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}"
+                class="form-control"
+                name="{{ field.name }}"
+                id="id_{{ field.name }}"
+                placeholder="{{ field.field.widget.attrs.placeholder }}">
+        </div>
+        <div class="form-group col-md-6">
+            <span class="text-danger small">{{ field.errors}}</span>
+            <label for="id_ngo_experience_mos">Ngo experience mos</label>
+            <input type="number"
+                class="form-control"
+                name="ngo_experience_mos"
+                id="id_ngo_experience_mos">
+        </div>
+    </div>
+    {% elif field.name == 'ngo_experience_mos' %}
+    
+    {% elif field.name == 'skill_set' %}
+    <div class="form-group">
+        <span class="text-danger small">{{ field.errors}}</span>
+        <label for="id_{{ field.name }}">{{ field.label }}</label>
+        <textarea row="5"
+            class="form-control"
+            name="{{ field.name }}"
+            id="id_{{ field.name }}"></textarea>
+    </div>
+    {% elif field.name == 'relocate'%}
+    <div class="form-group">
+        <span class="text-danger small">{{ field.errors}}</span>
+        <label for="id_relocate">Ready to re-locate as per job location</label>
+        <select id="id_relocate" name="relocate" placeholder="Choose job type" class="form-control">
+            <option value="1" {% if field.relocate.value == "1" %} selected {% endif %}>Yes</option>
+            <option value="2" {% if field.relocate.value == "2" %} selected {% endif %}>No</option>
+        </select>
+    </div>
+    {% else %}
+    <div class="form-group">
+        <span class="text-danger small">{{ field.errors}}</span>
+        <label for="id_{{ field.name }}">{{ field.label }}</label>
+        <input type="{{ field.field.widget.input_type }}"
+            class="form-control"
+            name="{{ field.name }}"
+            id="id_{{ field.name }}"
+            placeholder="{{ field.field.widget.attrs.placeholder }}">
+    </div>
+    
+    {% endif %}
+
+{% endfor %}
