@@ -43,16 +43,16 @@
                     <div class="card card-body">
                         <table class="table table-sm">
                             <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Degree</th>
+                                <th>Name</th>
+                                <th>Qualification</th>
+                                <th>Experience (Yrs)</th>
                                 <th>Resume</th>
                             </tr>
                             {% for applicant in applicants %}
                             <tr>
-                                <td>{{applicant.firstname}}</td>
-                                <td>{{applicant.lastname}}</td>
-                                <td>{{applicant.degree}}</td>
+                                <td>{{applicant.fullname}}</td>
+                                <td>{{applicant.highest_qualification}}</td>
+                                <td>{{applicant.total_experience_yrs}}.{{applicant.total_experience_mos}}</td>
                                 <td><a href="{{applicant.resume.url}}"">Download</a></td>
                                 <td><a href="{% url 'jobs:employer-dashboard-applicant-details' applicant.id %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">View</a></td>
                             </tr>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <h3>No Applicants</h3>
+                    <!-- <h3>No Applicants</h3> -->
                 {% endif %}
             </div>
         </div>

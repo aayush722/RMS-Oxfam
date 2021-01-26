@@ -3,10 +3,10 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
 from jobsapp.decorators import user_is_employer
-from jobsapp.forms import CreateJobForm
+from jobsapp.forms import CreateJobForm, EditJobForm
 from jobsapp.models import Job, Applicant, UserDetials
 from jobsapp.filters import ApplicantFilter
 import csv
@@ -39,7 +39,7 @@ def ExportToCsv(request, **kwargs):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['First Name', 'Last Name', 'Degree','Resume']
+    columns = ['Fullname','Email','Phone Number', 'Date of Birth','Highest Qualification', 'Experience Yrs', 'Experience Mos','NGO Experience Yrs','NGO Experience Mos','Skill Set','Current CTC','Expected CTC','Notice Period','Current Org','Current Designation','Current City','Resume']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
@@ -47,7 +47,7 @@ def ExportToCsv(request, **kwargs):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = UserDetials.objects.filter(job_id=kwargs['job_id']).values_list('firstname', 'lastname', 'degree','resume')
+    rows = UserDetials.objects.filter(job_id=kwargs['job_id']).values_list('fullname','email','phone_number', 'date_of_birth','highest_qualification', 'total_experience_yrs', 'total_experience_mos','ngo_experience_yrs','ngo_experience_mos','skill_set','current_ctc','expected_ctc','notice_period','current_org','current_designation','current_city','resume')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
@@ -102,6 +102,16 @@ class JobCreateView(CreateView):
         else:
             return self.form_invalid(form)
 
+class JobEditView(UpdateView):
+    model = Job
+    form_class = EditJobForm
+    template_name = 'jobs/employer/edit-job.html'
+    success_url = reverse_lazy('jobs:employer-dashboard')
+
+class JobDeleteView(DeleteView):
+    model = Job
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('jobs:employer-dashboard')
 
 class ApplicantsListView(ListView):
     model = UserDetials

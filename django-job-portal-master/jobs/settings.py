@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb'
 
-# DEBUG = True
+DEBUG = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_elasticsearch_dsl',
+    # 'django_elasticsearch_dsl',
     'drf_yasg',
     'corsheaders',
     'rest_framework',
@@ -184,16 +184,16 @@ LOGGING = {
     },
 }
 
-ELASTIC_HOST_NAME = os.environ.get('ELASTIC_HOST_NAME', 'localhost')
-ELASTIC_HOST_PORT = os.environ.get('ELASTIC_HOST_PORT', '9200')
-# ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
+# ELASTIC_HOST_NAME = os.environ.get('ELASTIC_HOST_NAME', 'localhost')
+# ELASTIC_HOST_PORT = os.environ.get('ELASTIC_HOST_PORT', '9200')
+# # ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
 
 
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': ELASTIC_HOST_NAME + ':' + ELASTIC_HOST_PORT,
-    },
-}
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': ELASTIC_HOST_NAME + ':' + ELASTIC_HOST_PORT,
+#     },
+# }
 
 # Documentation
 SWAGGER_SETTINGS = {

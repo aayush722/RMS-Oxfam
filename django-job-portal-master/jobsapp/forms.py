@@ -6,7 +6,7 @@ from jobsapp.models import Job, Applicant, UserDetials
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('user', 'created_at',)
+        exclude = ('user', 'created_at','filled')
         labels = {
             "last_date": "Last Date",
             "company_name": "Company Name",
@@ -26,6 +26,11 @@ class CreateJobForm(forms.ModelForm):
         if commit:
             job.save()
         return job
+
+class EditJobForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        exclude = ('user','created_at','filled')
 
 class DateInput(forms.DateInput):
     input_type = 'date'

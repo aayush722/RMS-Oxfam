@@ -12,3 +12,7 @@ def is_already_applied(job, user):
         return True
     else:
         return False
+
+@register.filter(name='get_date')
+def get_date(d):
+    return d.strftime("%Y-%m-%d")

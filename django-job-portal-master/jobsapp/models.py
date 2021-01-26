@@ -5,10 +5,40 @@ from django.core.validators import RegexValidator
 
 from accounts.models import User
 
+GRADE = (
+    ('1', "Chief Executive Officer"),
+    ('2', "A-1"),
+    ('3', "A-2"),
+    ('4', "A-3"),
+    ('5', "A-4"),
+    ('6', "A-5"),
+    ('7', "A-6"),
+    ('8', "A-7"),
+    ('9', "A-8"),
+    ('10', "A-9"),
+    ('11', "Consultant"),
+    ('12', "Internship"),
+    ('13', "Volunteer"),
+)
+
+CITY = (
+    ('1','Bangalore'),
+    ('2','Bhubaneswar'),
+    ('3','Delhi'),
+    ('4','Kolkata'),
+    ('5','Lucknow'),
+    ('6','Mumbai'),
+    ('7','Patna'),
+    ('8','Pune'),
+    ('9','Raipur'),
+)
+
 JOB_TYPE = (
     ('1', "Full time"),
     ('2', "Part time"),
-    ('3', "Internship"),
+    ('3', "Consultancy"),
+    ('4', "Internship"),
+    ('5', "Volunteering Assignment")
 )
 
 TRUE_FALSE_CHOICES = (
@@ -19,14 +49,18 @@ TRUE_FALSE_CHOICES = (
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    positions = models.IntegerField(default=1,blank=True)
     description = models.TextField()
-    location = models.CharField(max_length=150)
+    # location = models.CharField(max_length=150)
     type = models.CharField(choices=JOB_TYPE, max_length=10)
+    grade = models.CharField(choices=GRADE,max_length=25)
+    experience = models.IntegerField()
+    city = models.CharField(choices=CITY, max_length=20)
     category = models.CharField(max_length=100)
     last_date = models.DateTimeField()
     company_name = models.CharField(max_length=100)
     company_description = models.CharField(max_length=300)
-    website = models.CharField(max_length=100, default="")
+    # website = models.CharField(max_length=100, default="")
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
     salary = models.IntegerField(default=0, blank=True)

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load is_already_applied %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-6 offset-3">
+        <div class="box">
+            <h3 class="heading">Edit Job</h3>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{field.label}}:{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{field}}:{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.label == 'Last date'%}
+                    <div class="form-group">
+                        <label for="validity">Validity of the post</label>
+                        <input id="validity" class="form-control" name="last_date" type="date" value="{{ form.last_date.value|get_date }}">
+                    </div>
+                    {% elif field.label == 'Filled'%}
+                    <div class="form-group">
+                        <label for="filled">Filled</label>
+                        <input id="filled" name="filled" type="checkbox" value="{{field.value}}">
+                    </div>
+                    {% elif field.label == 'City' or field.label == 'Type' or field.label == 'Grade'%}
+                    <div class="form-group">
+                        <label>{{field.label}}</label>
+                        <div>{{field}}</div>
+                    </div>
+                    {% else %}
+
+                        <div class="form-group">
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-white-primary">
+                        <i class="fa fa-signing"></i> Update
+                    </button>
+                </div>
+            </form>
+            <style>
+                input, select{
+                    width: 520px;
+                    height: 40px;
+                }
+                textarea{
+                    width: 520px;
+                    height: 200px;
+                }
+            </style>
+        </div>
+    </div>
+{% endblock %}

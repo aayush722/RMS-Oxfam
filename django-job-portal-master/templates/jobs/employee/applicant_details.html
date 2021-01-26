@@ -11,37 +11,83 @@
 
         <div class="row justify-content-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <center><h1 class="lead">{{applicant.firstname}} {{applicant.lastname}}</h1></center>
+                <center><h1 class="lead">{{applicant.fullname}}</h1></center>
                 <form>{% csrf_token %}
 
                 <div class="form-group">
-                    <label for="{{form.firstname.id_for_label}}">Name</label>
-                    <input class="form-control" type="text" value="{{applicant.firstname}} {{applicant.lastname}}">
+                    <label>Email</label>
+                    <input class="form-control" value="{{applicant.email}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input class="form-control" value="{{applicant.phone_number}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Date of Birth</label>
+                    <input class="form-control" value="{{applicant.date_of_birth}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Highest Qualification</label>
+                    <input class="form-control" value="{{applicant.highest_qualification}}" type="text">
                 </div>
 
                 <!-- <div class="form-group">
-                    <label for="{{form.department.id_for_label}}">Email</label>
-                    <input class="form-control" type="text" value="{{applicant.email}}">
+                    <label for="{{form.resume.id_for_label}}">Resume</label>
+                    <input class="form-control" name= "resume" id="id_resume" type="file">
                 </div> -->
-
-                <div class="form-group">
-                    <label for="{{form.date_of_birth.id_for_label}}">Date of Birth</label>
-                    <input class="form-control" type="text" value="{{applicant.date_of_birth}}">
-                </div>
                 
                 <div class="form-group">
-                    <label for="{{form.degree.id_for_label}}">Degree</label>
-                    <input class="form-control" type="text" value="{{applicant.degree}}">
+                    <label">Skill Set</label>
+                    <textarea class="form-control" row="5">{{applicant.skill_set}}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="{{form.institute.id_for_label}}">Institute</label>
-                    <input class="form-control" type="text" value="{{applicant.institute}}">
+                    <label >Previous Experience</label>
+                    <input class="form-control" value="{{applicant.total_experience_yrs}} Year(s) {{applicant.total_experience_mos}} Month(s)" type="text">
                 </div>
 
                 <div class="form-group">
-                    <label for="{{form.department.id_for_label}}">Department</label>
-                    <input class="form-control" type="text" value="{{applicant.department}}">
+                    <label >Experience In NGO</label>
+                    <input class="form-control" value="{{applicant.ngo_experience_yrs}} Year(s) {{applicant.ngo_experience_mos}} Month(s)" type="text">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label for="{{form.current_ctc.id_for_label}}">Current CTC (INR)</label>
+                    <input class="form-control" value="{{applicant.current_ctc}}" type="text">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{form.expected_ctc.id_for_label}}">Expected CTC (INR)</label>
+                        <input class="form-control" value="{{applicant.expected_ctc}}" type="text">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label">Notice Period (Days)</label>
+                    <input class="form-control" value="{{applicant.notice_period}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Current Organization</label>
+                    <input class="form-control" value="{{applicant.current_org}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Designation in Current Organization</label>
+                    <input class="form-control" value="{{applicant.current_designation}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Current City</label>
+                    <input class="form-control" value="{{applicant.current_city}}" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label">Ready to re-locate as per job location</label>
+                    <input class="form-control" value={% if applicant.relocate == "1" %} Yes {% else %} No {% endif %} type="text">
                 </div>
 
                 </form>

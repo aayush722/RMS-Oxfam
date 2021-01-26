@@ -9,6 +9,8 @@ urlpatterns = [
     path('search', SearchView.as_view(), name='searh'),
     path('employer/dashboard/', include([
         path('', DashboardView.as_view(), name='employer-dashboard'),
+        path(r'update/(?P<pk>\d+)/$', JobEditView.as_view(), name='employer-update'),
+        path(r'delete/(?P<pk>\d+)/$', JobDeleteView.as_view(), name='employer-delete'),
         path('all-applicants', ApplicantsListView.as_view(), name='employer-all-applicants'),
         path('applicants/<int:job_id>', ApplicantPerJobView, name='employer-dashboard-applicants'),
         path('csvdump/<int:job_id>', ExportToCsv, name='employer-dashboard-csvdump'),
